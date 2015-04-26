@@ -1,13 +1,12 @@
 {
   "name": "RTMidi",
-  "url": "",
+  "url": "https://github.com/fserb/RTMidi",
   "license": "MIT",
   "tags": [],
-  "description": "",
+  "description": "Native extension for RTMidi",
   "version": "1.0.0",
   "releasenote": "",
-  "contributors": [""],
+  "contributors": ["fserb"],
   "dependencies": {
-
   }
 }
