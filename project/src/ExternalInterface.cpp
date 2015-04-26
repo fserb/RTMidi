@@ -38,6 +38,12 @@ value rtmidi_in_openport(value obj, value port) {
   return alloc_null();
 }
 
+value rtmidi_in_closeport(value obj) {
+  RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
+  midiin->closePort();
+  return alloc_null();
+}
+
 value rtmidi_in_getportname(value obj, value port) {
   RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
   return alloc_string(midiin->getPortName(val_int(port)).c_str());
@@ -114,6 +120,12 @@ value rtmidi_out_openport(value obj, value port) {
   return alloc_null();
 }
 
+value rtmidi_out_closeport(value obj) {
+  RtMidiOut *midiout = (RtMidiOut *)(intptr_t)val_float(obj);
+  midiout->closePort();
+  return alloc_null();
+}
+
 value rtmidi_out_getportname(value obj, value port) {
   RtMidiOut *midiout = (RtMidiOut *)(intptr_t)val_float(obj);
   return alloc_string(midiout->getPortName(val_int(port)).c_str());
@@ -137,6 +149,7 @@ DEFINE_PRIM(rtmidi_in_create, 0);
 DEFINE_PRIM(rtmidi_in_destroy, 1);
 DEFINE_PRIM(rtmidi_in_getportcount, 1);
 DEFINE_PRIM(rtmidi_in_openport, 2);
+DEFINE_PRIM(rtmidi_in_closeport, 1);
 DEFINE_PRIM(rtmidi_in_getportname, 2);
 DEFINE_PRIM(rtmidi_in_ignoretypes, 4);
 DEFINE_PRIM(rtmidi_in_getmessage, 1);
@@ -146,6 +159,7 @@ DEFINE_PRIM(rtmidi_out_create, 0);
 DEFINE_PRIM(rtmidi_out_destroy, 1);
 DEFINE_PRIM(rtmidi_out_getportcount, 1);
 DEFINE_PRIM(rtmidi_out_openport, 2);
+DEFINE_PRIM(rtmidi_out_closeport, 1);
 DEFINE_PRIM(rtmidi_out_getportname, 2);
 DEFINE_PRIM(rtmidi_out_sendmessage, 2);
 

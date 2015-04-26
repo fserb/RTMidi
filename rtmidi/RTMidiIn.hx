@@ -25,6 +25,10 @@ class RTMidiIn {
     rtmidi_in_openport(obj, port);
   }
 
+  public function closePort() {
+    rtmidi_in_closeport(obj);
+  }
+
   public function getPortName(port: Int): String {
     return rtmidi_in_getportname(obj, port);
   }
@@ -49,6 +53,7 @@ class RTMidiIn {
   private static var rtmidi_in_destroy = Lib.load("rtmidi", "rtmidi_in_destroy", 1);
   private static var rtmidi_in_getportcount = Lib.load("rtmidi", "rtmidi_in_getportcount", 1);
   private static var rtmidi_in_openport = Lib.load("rtmidi", "rtmidi_in_openport", 2);
+  private static var rtmidi_in_closeport = Lib.load("rtmidi", "rtmidi_in_closeport", 1);
   private static var rtmidi_in_getportname = Lib.load("rtmidi", "rtmidi_in_getportname", 2);
   private static var rtmidi_in_ignoretypes = Lib.load("rtmidi", "rtmidi_in_ignoretypes", 4);
   private static var rtmidi_in_getmessage = Lib.load("rtmidi", "rtmidi_in_getmessage", 1);
