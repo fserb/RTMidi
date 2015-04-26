@@ -1,5 +1,5 @@
-rtmidi haxe port
-================
+rtmidi bindings for haxe
+========================
 
 This is a native Haxe extension for [rtmidi](http://www.music.mcgill.ca/~gary/rtmidi).
 
