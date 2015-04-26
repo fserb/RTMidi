@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": [],
   "description": "Native extension for RTMidi",
-  "version": "1.0.0",
-  "releasenote": "",
+  "version": "1.0.1",
+  "releasenote": "Fixed GC issue",
   "contributors": ["fserb"],
   "dependencies": {
   }
