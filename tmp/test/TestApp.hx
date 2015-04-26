@@ -23,7 +23,7 @@ class TestApp  {
     // Lib.current.stage.addEventListener(Event.ENTER_FRAME, frame);
   }
 
-  public function cb(msg:Array<Int>) {
+  function cb(msg:Array<Int>) {
     trace(msg);
   }
 
