@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <meta title="TestApp" package="testapp" version="1.0.0" company="" />
+  <app main="TestApp" path="out" file="TestApp" />
+  <source path="." />
+  <haxelib name="openfl" />
+  <haxelib name="RTMidi" />
+</project>

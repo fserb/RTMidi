@@ -1,13 +1,13 @@
-#ifndef SAMPLEEXTENSION_H
-#define SAMPLEEXTENSION_H
+#ifndef RTMIDI_H
+#define RTMIDI_H
 
 
-namespace sampleextension {
-	
-	
+namespace rtmidi {
+
+
 	int SampleMethod(int inputValue);
-	
-	
+
+
 }
 
 

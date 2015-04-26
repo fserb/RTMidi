@@ -11,27 +11,27 @@
 #include "Utils.h"
 
 
-using namespace sampleextension;
+using namespace rtmidi;
 
 
 
-static value sampleextension_sample_method (value inputValue) {
-	
+static value rtmidi_sample_method (value inputValue) {
+
 	int returnValue = SampleMethod(val_int(inputValue));
 	return alloc_int(returnValue);
-	
+
 }
-DEFINE_PRIM (sampleextension_sample_method, 1);
+DEFINE_PRIM (rtmidi_sample_method, 1);
 
 
 
-extern "C" void sampleextension_main () {
-	
+extern "C" void rtmidi_main () {
+
 	val_int(0); // Fix Neko init
-	
+
 }
-DEFINE_ENTRY_POINT (sampleextension_main);
+DEFINE_ENTRY_POINT (rtmidi_main);
 
 
 
-extern "C" int sampleextension_register_prims () { return 0; }
+extern "C" int rtmidi_register_prims () { return 0; }

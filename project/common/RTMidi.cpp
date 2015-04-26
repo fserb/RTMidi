@@ -1,14 +1,14 @@
 #include "Utils.h"
 
 
-namespace sampleextension {
-	
-	
+namespace rtmidi {
+
+
 	int SampleMethod(int inputValue) {
-		
+
 		return inputValue * 100;
-		
+
 	}
-	
-	
+
+
 }
