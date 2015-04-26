@@ -50,12 +50,39 @@ value rtmidi_in_getmessage(value obj) {
   return ret;
 }
 
+void _rtmidi_in_callback(double deltatime,
+                         std::vector<unsigned char> *message,
+                         void *userData) {
+
+  value ret = alloc_array(message->size());
+  for (int i = 0; i < message->size(); ++i) {
+    val_array_set_i(ret, i, alloc_int((*message)[i]));
+  }
+
+  val_call1((value)userData, ret);
+}
+
+value rtmidi_in_setcallback(value obj, value func) {
+  RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
+  midiin->setCallback(&_rtmidi_in_callback, func);
+  return alloc_null();
+}
+
+value rtmidi_in_cancelcallback(value obj) {
+  RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
+  midiin->cancelCallback();
+  return alloc_null();
+}
+
+
 DEFINE_PRIM(rtmidi_in_create, 0);
 DEFINE_PRIM(rtmidi_in_destroy, 1);
 DEFINE_PRIM(rtmidi_in_getportcount, 1);
 DEFINE_PRIM(rtmidi_in_openport, 2);
 DEFINE_PRIM(rtmidi_in_ignoretypes, 4);
 DEFINE_PRIM(rtmidi_in_getmessage, 1);
+DEFINE_PRIM(rtmidi_in_setcallback, 2);
+DEFINE_PRIM(rtmidi_in_cancelcallback, 1);
 
 
 extern "C" void rtmidi_main () {
