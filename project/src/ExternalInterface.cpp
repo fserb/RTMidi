@@ -38,6 +38,11 @@ value rtmidi_in_openport(value obj, value port) {
   return alloc_null();
 }
 
+value rtmidi_in_getportname(value obj, value port) {
+  RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
+  return alloc_string(midiin->getPortName(val_int(port)).c_str());
+}
+
 value rtmidi_in_ignoretypes(value obj, value sysex, value time, value sense) {
   RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
   midiin->ignoreTypes(val_bool(sysex), val_bool(time), val_bool(sense));
@@ -87,16 +92,62 @@ value rtmidi_in_cancelcallback(value obj) {
   return alloc_null();
 }
 
+value rtmidi_out_create() {
+  RtMidiOut *midiout = new RtMidiOut();
+  return alloc_float((intptr_t)midiout);
+}
+
+value rtmidi_out_destroy(value obj) {
+  RtMidiOut *midiout = (RtMidiOut *)(intptr_t)val_float(obj);
+  delete midiout;
+  return alloc_null();
+}
+
+value rtmidi_out_getportcount(value obj) {
+  RtMidiOut *midiout = (RtMidiOut *)(intptr_t)val_float(obj);
+  return alloc_int(midiout->getPortCount());
+}
+
+value rtmidi_out_openport(value obj, value port) {
+  RtMidiOut *midiout = (RtMidiOut *)(intptr_t)val_float(obj);
+  midiout->openPort(val_int(port));
+  return alloc_null();
+}
+
+value rtmidi_out_getportname(value obj, value port) {
+  RtMidiOut *midiout = (RtMidiOut *)(intptr_t)val_float(obj);
+  return alloc_string(midiout->getPortName(val_int(port)).c_str());
+}
+
+value rtmidi_out_sendmessage(value obj, value msg) {
+  RtMidiOut *midiout = (RtMidiOut *)(intptr_t)val_float(obj);
+
+  std::vector<unsigned char> message;
+
+  int size = val_array_size(msg);
+  for (int i = 0; i < size; ++i) {
+    message.push_back(val_int(val_array_i(msg, i)));
+  }
+
+  midiout->sendMessage(&message);
+  return alloc_null();
+}
 
 DEFINE_PRIM(rtmidi_in_create, 0);
 DEFINE_PRIM(rtmidi_in_destroy, 1);
 DEFINE_PRIM(rtmidi_in_getportcount, 1);
 DEFINE_PRIM(rtmidi_in_openport, 2);
+DEFINE_PRIM(rtmidi_in_getportname, 2);
 DEFINE_PRIM(rtmidi_in_ignoretypes, 4);
 DEFINE_PRIM(rtmidi_in_getmessage, 1);
 DEFINE_PRIM(rtmidi_in_setcallback, 2);
 DEFINE_PRIM(rtmidi_in_cancelcallback, 1);
-
+DEFINE_PRIM(rtmidi_out_create, 0);
+DEFINE_PRIM(rtmidi_out_destroy, 1);
+DEFINE_PRIM(rtmidi_out_getportcount, 1);
+DEFINE_PRIM(rtmidi_out_openport, 2);
+DEFINE_PRIM(rtmidi_out_getportname, 2);
+DEFINE_PRIM(rtmidi_out_sendmessage, 2);
 
 extern "C" void rtmidi_main () {
 

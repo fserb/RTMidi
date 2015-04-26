@@ -6,7 +6,7 @@ This is a native Haxe extension for [rtmidi](http://www.music.mcgill.ca/~gary/rt
 It comes with precompiled ndlls for Mac, but it should work with all RTMidi
 targets (Windows, Mac, Linux).
 
-Currently, only RTMidi Input is done. Output should be easy if someone needs it.
+Both RTMidiIn and RTMidiOut are supported.
 
 To compile the extension:
 
@@ -29,7 +29,7 @@ function callback(msg: Array<Int>) {
 }
 
 static public function main() {
-  midi = new RTMidi();
+  midi = new rtmidi.RTMidiIn();
   if (midi.getPortCount() == 0) return;
 
   midi.openPort(0);

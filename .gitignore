@@ -1,4 +1,3 @@
 project/obj
-tmp/pooling
-tmp/test/out
+tmp
 rtmidi.zip
