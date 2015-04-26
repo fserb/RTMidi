@@ -10,6 +10,8 @@
 #include <hx/CFFI.h>
 #include "RtMidi.h"
 
+AutoGCRoot* callback_root = NULL;
+
 value rtmidi_in_create() {
   RtMidiIn *midiin = new RtMidiIn();
   return alloc_float((intptr_t)midiin);
@@ -18,6 +20,10 @@ value rtmidi_in_create() {
 value rtmidi_in_destroy(value obj) {
   RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
   delete midiin;
+  if (callback_root) {
+    delete callback_root;
+    callback_root = NULL;
+  }
   return alloc_null();
 }
 
@@ -53,24 +59,30 @@ value rtmidi_in_getmessage(value obj) {
 void _rtmidi_in_callback(double deltatime,
                          std::vector<unsigned char> *message,
                          void *userData) {
+  int top = 0;
+  gc_set_top_of_stack(&top, true);
 
   value ret = alloc_array(message->size());
   for (int i = 0; i < message->size(); ++i) {
     val_array_set_i(ret, i, alloc_int((*message)[i]));
   }
-
-  val_call1((value)userData, ret);
+  val_call1(callback_root->get(), ret);
 }
 
 value rtmidi_in_setcallback(value obj, value func) {
   RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
-  midiin->setCallback(&_rtmidi_in_callback, func);
+  callback_root = new AutoGCRoot(func);
+  midiin->setCallback(&_rtmidi_in_callback);
   return alloc_null();
 }
 
 value rtmidi_in_cancelcallback(value obj) {
   RtMidiIn *midiin = (RtMidiIn *)(intptr_t)val_float(obj);
   midiin->cancelCallback();
+  if (callback_root) {
+    delete callback_root;
+    callback_root = NULL;
+  }
   return alloc_null();
 }
 

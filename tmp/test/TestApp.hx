@@ -20,10 +20,6 @@ class TestApp  {
     midi.setCallback(cb);
     midi.ignoreTypes(false, false, false);
 
-    // var t = new flash.text.TextField();
-    // t.text = Std.string(RTMidi.sampleMethod(16));
-    // flash.Lib.current.addChild(t);
-
     // Lib.current.stage.addEventListener(Event.ENTER_FRAME, frame);
   }
 
