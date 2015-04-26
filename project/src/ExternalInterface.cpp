@@ -67,6 +67,7 @@ void _rtmidi_in_callback(double deltatime,
     val_array_set_i(ret, i, alloc_int((*message)[i]));
   }
   val_call1(callback_root->get(), ret);
+  gc_set_top_of_stack(0,true);
 }
 
 value rtmidi_in_setcallback(value obj, value func) {
