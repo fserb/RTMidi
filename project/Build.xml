@@ -2,12 +2,15 @@
 
 	<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
 
+	<set name="RTMIDI_PATH" value="lib/rtmidi-2.1.0"/>
+
 	<files id="common">
 
-		<compilerflag value="-Iinclude"/>
+		<compilerflag value="-I${RTMIDI_PATH}"/>
+		<compilerflag value="-D__MACOSX_CORE__" />
+		<file name="${RTMIDI_PATH}/RtMidi.cpp"/>
 
-		<file name="common/ExternalInterface.cpp"/>
-		<file name="common/RTMidi.cpp"/>
+		<file name="src/ExternalInterface.cpp"/>
 
 	</files>
 
@@ -22,6 +25,12 @@
 		<outdir name="../ndll/${BINDIR}"/>
 		<ext value=".ndll" if="windows || mac || linux"/>
 		<files id="common"/>
+
+		<section if="mac">
+			<vflag name="-framework" value="CoreMIDI" />
+			<vflag name="-framework" value="CoreFoundation" />
+			<vflag name="-framework" value="CoreAudio" />
+		</section>
 
 	</target>
 

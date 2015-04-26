@@ -1,4 +1,4 @@
-// clang++ -o pooling -I ../dependencies/rtmidi-2.1.0/ -L ../dependencies/rtmidi-2.1.0/ -lrtmidi pooling.cc
+// clang++ -o pooling -I ../project/lib/rtmidi-2.1.0/ -L ../project/lib/rtmidi-2.1.0/ -lrtmidi pooling.cc
 
 #include <iostream>
 #include <cstdlib>
